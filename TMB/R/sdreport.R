@@ -243,7 +243,7 @@ sdreport <- function(obj,par.fixed=NULL,hessian.fixed=NULL,getJointPrecision=FAL
           sd <- sqrt(diag(cov))
       } else {
           tmp <- lapply(seq_along(phi), doDeltaMethod)
-          sd <- sqrt(unlist(tmp))
+          sd <- sqrt(as.numeric(unlist(tmp)))
           cov <- NA
       }
   } else {
@@ -490,6 +490,7 @@ print.sdreport <- function(x, ...)
 ##' as.list(rep, "Est. (bias.correct)", report=TRUE)
 ##' }
 as.list.sdreport <- function(x, what = "", report=FALSE, ...) {
+    if (what == "") return (x)
     if (!report) {
         ans <- x$env$parameters
         random <- x$env$random
